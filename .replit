@@ -1,0 +1,6 @@
+modules = ["cpp-clang14"]
+
+run = "bash RUN_HERE/run.sh"
+
+[deployment]
+run = ["sh", "-c", "g++ -o main $ASSIGNMENT/Assignment0A/main.cpp"]
