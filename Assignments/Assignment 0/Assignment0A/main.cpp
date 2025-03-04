@@ -52,7 +52,7 @@ int main()
     cout << fixed << setprecision(2);
 
     // Display each month's total expenses
-    cout << "\nHere are the credit card totals for each month:" << endl << endl;
+    cout << "\nHere are the credit card totals for each month:" << endl;
     for (int i = 0; i < MONTHS; i++) 
     {
         cout << setw(10) << left << monthNames[i] << " : $" << monthlyExpenses[i] << endl;
