@@ -1,18 +1,8 @@
 #include <iostream>
 using namespace std;
 
-void findDisorder(int arr[], int n, int* &p)
-{
-    for (int k = 1; k < n; k++)
-    {
-        if (arr[k] < arr[k - 1]) // Check for disorder
-        {
-            p = arr + k;  // Set pointer to the first disorder element
-            return;        // Exit the function once disorder is found
-        }
-    }
-    p = nullptr;  // If no disorder is found, set p to nullptr
-}
+//FUNCTION PROTOTYPE
+void findDisorder(int[], int, int*&);
 
 int main()
 {
@@ -33,4 +23,18 @@ int main()
     }
 
     return 0;
+}
+
+//FUNCTION DEFINITION
+void findDisorder(int arr[], int n, int* &p)
+{
+    for (int k = 1; k < n; k++)
+    {
+        if (arr[k] < arr[k - 1]) // Check for disorder
+        {
+            p = arr + k;  // Set pointer to the first disorder element
+            return;        // Exit the function once disorder is found
+        }
+    }
+    p = nullptr;  // If no disorder is found, set p to nullptr
 }
