@@ -1,0 +1,11 @@
+{
+    "configurations": [
+      {
+        "type": "cppvsdbg",
+        "request": "launch",
+        "name": "Launch Program",
+        "program": "${workspaceFolder}/main.exe",
+        "preLaunchTask": "C/C++: gcc.exe build active file"
+      }
+    ]
+  }
