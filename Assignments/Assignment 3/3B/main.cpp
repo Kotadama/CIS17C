@@ -24,28 +24,25 @@ private:
     {
         Node* current = headDummy.next;
         
+        // Traverse the list to find the value
         while (current != &tailDummy)
         {
+            // If the value is found, delete the node
             if (current->data == value)
             {
-                // Adjust pointers of neighboring nodes
-                if (current->prev != &headDummy)
-                    current->prev->next = current->next;
-                if (current->next != &tailDummy)
-                    current->next->prev = current->prev;
+                // Adjust pointers
+                current->prev->next = current->next; // Update the previous node's next pointer
+                current->next->prev = current->prev; // Update the next node's previous pointer
 
-                // Free the memory of the current node
+                // If deleting the first node, update headDummy
+                if (headDummy.next == current)
+                    headDummy.next = current->next;
+
                 delete current;
-
-                // Return true indicating the node was deleted
                 return true;
             }
-
-            // Move to the next node
             current = current->next;
         }
-
-        // If the value was not found, return false
         return false;
     }
 
@@ -54,24 +51,26 @@ private:
     {
         Node* current = tailDummy.prev;
 
-       while (current != &headDummy)
-       {
-            if(current->data == value)
+        // Traverse the list to find the value
+        while (current != &headDummy)
+        {
+            // If the value is found, delete the node
+            if (current->data == value)
             {
-                if(current->prev != &headDummy)
-                    current->prev->next = current ->next;
-                if(current->next != &tailDummy)
-                    current->next->prev = current->prev;
-                
-                delete current;
+                // Adjust pointers
+                current->prev->next = current->next;
+                current->next->prev = current->prev;
 
+                // If deleting the last node, update tailDummy
+                if (tailDummy.prev == current)
+                    tailDummy.prev = current->prev;
+
+                delete current;
                 return true;
             }
-       current = current -> prev;
-    }
-
-    return false;
-
+            current = current->prev; 
+        }
+        return false;
     }
 
     // Private member function to add a node traversing from the front of the list
@@ -83,21 +82,23 @@ private:
         // Traverse the list to find the correct position to insert the new node
         while (current != &tailDummy && current->data < value)
         {
-            current = current->next;
+            current = current->next; 
         }
 
         // Insert the new node before the current node
         newNode->next = current;
         newNode->prev = current->prev;
+
+        // Update the next node's previous pointer
         if (current->prev != &headDummy)
         {
-            current->prev->next = newNode;
+            current->prev->next = newNode; // Update the previous node's next pointer
         }
         else
         {
-            headDummy.next = newNode;
+            headDummy.next = newNode; // Update headDummy if the new node is the first node
         }
-        current->prev = newNode;
+        current->prev = newNode; // Update the current node's previous pointer
     }
 
     // Private member function to add a node traversing from the end of the list
@@ -115,15 +116,17 @@ private:
         // Insert the new node before the current node
         newNode->prev = current;
         newNode->next = current->next;
+
+        // If current is not the last node, update the next node's previous pointer
         if (current->next != &tailDummy)
         {
-            current->next->prev = newNode;
+            current->next->prev = newNode; // Update the next node's previous pointer
         }
         else
         {
-            tailDummy.prev = newNode;
+            tailDummy.prev = newNode; // Update tailDummy if the new node is the last node
         }
-        current->next = newNode;
+        current->next = newNode; // Update the current node's next pointer
     
     }
 
@@ -139,19 +142,27 @@ public:
     // Destructor to free memory
     ~DoublyLinkedList()
     {
+        // Start from the first node
         Node* current = headDummy.next;
+
+        // Delete all nodes in the list
         while (current != &tailDummy)
         {
-            Node *temp = current;
+            Node* temp = current; 
             current = current->next;
             delete temp;
         }
+        headDummy.next = &tailDummy;  // Ensure head points to tail after deletion
+        tailDummy.prev = &headDummy;  // Ensure tail points to head after deletion
     }
 
     // Function to print the elements of the list
     void printList()
     {
+        // Start from the first node
         Node* current = headDummy.next;
+
+        // Traverse the list and print the data of each node
         while (current != &tailDummy)
         {
             std::cout << current->data << " ";
