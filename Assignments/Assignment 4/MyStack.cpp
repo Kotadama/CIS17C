@@ -1,24 +1,53 @@
 #include "MyStack.h" // Include the class header
 #include <climits>
 
-MyStack()
+MyStack::MyStack()
 {
-
+	head = nullptr; // Initialize head to nullptr
 }
 
-MyStack(const MyStack& rhs)
+MyStack::MyStack(const MyStack& rhs)
 {
+	head = nullptr; // Initialize head to nullptr
+	*this = rhs;    // Use the assignment operator to copy
+}
+MyStack& MyStack::operator=(const MyStack& rhs)
+{
+	if (this == &rhs)  // Check for self-assignment
+	{
+		return *this;
+	}
 
+	// Clear the current stack
+	while (head != nullptr)
+	{
+		Node* temp = head;
+		head = head->next;
+		delete temp;
+	}
+
+	head = nullptr; // Reset head
+
+	// Copy nodes from rhs
+	Node* temp = rhs.head;
+	while (temp != nullptr)
+	{
+		push(temp->data); // Use push to add elements to the stack
+		temp = temp->next;
+	}
+
+	return *this;
 }
 
-MyStack operator=(const MyStack& rhs)
-{
-	//copy contructor
-}
+
+	
 
 void push(int v) 
 {
-	//add items to the top of the stack
+	Node* newNode = new Node(); // Create a new node
+    newNode->data = v;          // Set the data
+    newNode->next = head;       // Point the new node to the current head
+    head = newNode;  
 }
 
 int pop()
@@ -29,19 +58,47 @@ int pop()
 int peek()
 {
 	//print the item at the top of the stack
+
 }
 
 int size()
 {
-	//code for printing out the size of the list/stack
+	int count = 0;
+	Node *temp = head;
+	while (temp != nullptr)
+	{
+		count++;  // Increment count for each node
+		temp = temp->next;  // Move to the next node
+	}
+	return count;  // Return the number of nodes in the list
 }
 
 void printStack()
 {
-	//code for printing all elements of the list/Stack
+	 // Start from the first node
+	 Node* current = headDummy.next;
+
+	 // Traverse the list and print the data of each node
+	 while (current != nullptr)
+	 {
+		 std::cout << current->data << " ";
+		 current = current->next;
+	 }
+	 std::cout << std::endl;
 }
 
 ~MyStack()
 {
-	//deconstructor for the stack
+	// Start from the first node
+	Node* current = headDummy.next;
+
+	// Delete all nodes in the list
+	while (current != nullptr)
+	{
+		Node* temp = current; 
+		current = current->next;
+		delete temp;
+	}
+	headDummy.next = nullptr;  // Ensure head points to tail after deletion
+	
 }
