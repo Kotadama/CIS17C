@@ -12,7 +12,7 @@ struct Node {
 
 	Node* next;
 
-}
+};
 
 #endif /* Node_h */
 

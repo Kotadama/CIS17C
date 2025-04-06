@@ -16,7 +16,7 @@ private:
 public:
     MyStack();
     MyStack(const MyStack& rhs);
-    MyStack operator=(const MyStack& rhs);
+    MyStack& operator=(const MyStack& rhs);
     void push(int v);
     int pop();
     int peek();
