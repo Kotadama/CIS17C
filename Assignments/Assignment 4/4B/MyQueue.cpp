@@ -67,7 +67,8 @@ void MyQueue::push(int v)
 
 
 // Pop from the front of the queue
-int MyQueue::pop() {
+int MyQueue::pop() 
+{
   if (dummy.next == nullptr) 
   {
       return INT_MIN;
@@ -85,7 +86,8 @@ int MyQueue::pop() {
 
 
 // Peek at the front item
-int MyQueue::peek() {
+int MyQueue::peek() 
+{
   if (dummy.next == nullptr) 
   {
       return INT_MIN;
@@ -96,6 +98,7 @@ int MyQueue::peek() {
 
 // Return size of the queue
 int MyQueue::size() {
+  // If the queue is empty, return 0
   if (dummy.next == nullptr) 
   {
       return 0;
@@ -104,6 +107,7 @@ int MyQueue::size() {
   int count = 0;
   Node* current = dummy.next;
 
+  // Start from the first real node and count each one
   while (current != nullptr) 
   {
       count++;
@@ -119,6 +123,7 @@ void MyQueue::printQueue()
 {
   Node* current = dummy.next;
 
+  // Start from the first real node and print each value
   while (current != nullptr) 
   {
       cout << current->value << " ";
@@ -130,13 +135,21 @@ void MyQueue::printQueue()
 
 
 // Destructor
-MyQueue::~MyQueue() {
+MyQueue::~MyQueue() 
+{
+  // Delete all nodes in the queue
   Node* current = dummy.next;
 
-  while (current != nullptr) {
+  // Start from the first real node and delete each one
+  while (current != nullptr) 
+  {
       Node* toDelete = current;
       current = current->next;
       delete toDelete;
   }
+
+  // Set dummy.next to nullptr to avoid dangling pointer
+  dummy.next = nullptr;
 }
+
 
