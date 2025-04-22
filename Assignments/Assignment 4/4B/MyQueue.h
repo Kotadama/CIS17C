@@ -16,7 +16,7 @@ class MyQueue{
   public:
     MyQueue();
     MyQueue(const MyQueue& rhs);
-    MyQueue operator=(const MyQueue& rhs);
+    MyQueue& operator=(const MyQueue& rhs);
     void push(int v);
     int pop();
     int peek();
