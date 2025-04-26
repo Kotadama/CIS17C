@@ -22,15 +22,32 @@ public:
     // Copy Constructor
     LinkedList(const LinkedList &Old)
     {
-        head = nullptr;  // Start with an empty list
-        Node *temp = Old.head;  // Pointer to the original list's head
-
-        // Traverse the original list and copy its nodes
-        while (temp != nullptr)
+        if (Old.head == nullptr)  // If the original list is empty
         {
-            addToRear(temp->value);  // Add each value to the new list
-            temp = temp->next;  // Move to the next node
+            head = nullptr;  // Initialize the new list as empty
+            return;
         }
+        else if (this == &Old)  // If the original list is the same as the new list
+        {
+            head = Old.head;  // Point to the same head
+            return;
+        }
+        else
+        {
+            // If the original list is not empty, copy its nodes
+            head = nullptr;  // Start with an empty list
+            Node *temp = Old.head;  // Pointer to the original list's head
+
+            // Traverse the original list and copy its nodes
+            while (temp != nullptr)
+            {
+                addToRear(temp->value);  // Add each value to the new list
+                temp = temp->next;  // Move to the next node
+            }
+        }
+
+        
+        
     }
 
     // Destructor
